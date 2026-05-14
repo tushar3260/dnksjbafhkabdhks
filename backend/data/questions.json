@@ -1,13 +1,13 @@
 [
   {
     "id": "l1-1",
-    "title": "Student List",
+    "title": "Student Details",
     "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/students' ko complete karein taaki data show ho jaye.",
+    "instructions": "Backend me missing GET route '/students' ko complete karein taaki table me data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/students'\n\napp.listen(3000);",
-      "index.html": "<h1>Student List</h1><ul id='out'></ul>\n<script>\nfetch('/students').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.name + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"name\": \"Sample 1\"}, {\"name\": \"Sample 2\"}]"
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/students' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Student Details</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Student Details</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th><th>Course</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/students\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td><td>${item.course}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"name\": \"Rahul\",\n    \"course\": \"CS\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Sneha\",\n    \"course\": \"IT\"\n  }\n]"
     },
     "expectedAPIs": [
       {
@@ -16,34 +16,22 @@
       }
     ],
     "hints": [
-      "Check the URL '/students' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
+      "Fetch URL '/students' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
     ],
-    "solution": "app.get('/students', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/students') diya tha, isliye backend me app.get('/students') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
+    "solution": "app.get('/students', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/students') hai toh backend me vahi route hona chahiye."
   },
   {
     "id": "l1-2",
-    "title": "Teacher Directory",
+    "title": "Teacher Staff",
     "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/teachers' ko complete karein taaki data show ho jaye.",
+    "instructions": "Backend me missing GET route '/teachers' ko complete karein taaki table me data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/teachers'\n\napp.listen(3000);",
-      "index.html": "<h1>Teacher Directory</h1><ul id='out'></ul>\n<script>\nfetch('/teachers').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.subject + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"subject\": \"Sample 1\"}, {\"subject\": \"Sample 2\"}]"
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/teachers' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Teacher Staff</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Teacher Staff</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th><th>Dept</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/teachers\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td><td>${item.dept}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"name\": \"Dr. Smith\",\n    \"dept\": \"Math\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Prof. Jane\",\n    \"dept\": \"Phys\"\n  }\n]"
     },
     "expectedAPIs": [
       {
@@ -52,34 +40,22 @@
       }
     ],
     "hints": [
-      "Check the URL '/teachers' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
+      "Fetch URL '/teachers' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
     ],
-    "solution": "app.get('/teachers', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/teachers') diya tha, isliye backend me app.get('/teachers') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
+    "solution": "app.get('/teachers', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/teachers') hai toh backend me vahi route hona chahiye."
   },
   {
     "id": "l1-3",
     "title": "Library Books",
     "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/books' ko complete karein taaki data show ho jaye.",
+    "instructions": "Backend me missing GET route '/books' ko complete karein taaki table me data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/books'\n\napp.listen(3000);",
-      "index.html": "<h1>Library Books</h1><ul id='out'></ul>\n<script>\nfetch('/books').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.title + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"title\": \"Sample 1\"}, {\"title\": \"Sample 2\"}]"
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/books' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Library Books</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Library Books</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Title</th><th>Author</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/books\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.title}</td><td>${item.author}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"title\": \"JS Guide\",\n    \"author\": \"MDN\"\n  },\n  {\n    \"id\": 2,\n    \"title\": \"Express Pro\",\n    \"author\": \"Node\"\n  }\n]"
     },
     "expectedAPIs": [
       {
@@ -88,34 +64,22 @@
       }
     ],
     "hints": [
-      "Check the URL '/books' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
+      "Fetch URL '/books' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
     ],
-    "solution": "app.get('/books', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/books') diya tha, isliye backend me app.get('/books') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
+    "solution": "app.get('/books', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/books') hai toh backend me vahi route hona chahiye."
   },
   {
     "id": "l1-4",
-    "title": "Product Catalog",
+    "title": "Grocery Inventory",
     "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/items' ko complete karein taaki data show ho jaye.",
+    "instructions": "Backend me missing GET route '/items' ko complete karein taaki table me data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/items'\n\napp.listen(3000);",
-      "index.html": "<h1>Product Catalog</h1><ul id='out'></ul>\n<script>\nfetch('/items').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.price + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"price\": \"Sample 1\"}, {\"price\": \"Sample 2\"}]"
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/items' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Grocery Inventory</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Grocery Inventory</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th><th>Stock</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td><td>${item.stock}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"name\": \"Milk\",\n    \"stock\": 50\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Bread\",\n    \"stock\": 20\n  }\n]"
     },
     "expectedAPIs": [
       {
@@ -124,979 +88,720 @@
       }
     ],
     "hints": [
-      "Check the URL '/items' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
+      "Fetch URL '/items' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
     ],
-    "solution": "app.get('/items', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/items') diya tha, isliye backend me app.get('/items') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
+    "solution": "app.get('/items', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/items') hai toh backend me vahi route hona chahiye."
   },
   {
     "id": "l1-5",
-    "title": "Hospital Patients",
+    "title": "Hospital Doctors",
     "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/patients' ko complete karein taaki data show ho jaye.",
+    "instructions": "Backend me missing GET route '/doctors' ko complete karein taaki table me data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/patients'\n\napp.listen(3000);",
-      "index.html": "<h1>Hospital Patients</h1><ul id='out'></ul>\n<script>\nfetch('/patients').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.disease + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"disease\": \"Sample 1\"}, {\"disease\": \"Sample 2\"}]"
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/doctors' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Hospital Doctors</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Hospital Doctors</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th><th>Specialty</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/doctors\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td><td>${item.specialty}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"name\": \"Dr. Aman\",\n    \"specialty\": \"Heart\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Dr. Ria\",\n    \"specialty\": \"Skin\"\n  }\n]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/patients"
+        "path": "/doctors"
       }
     ],
     "hints": [
-      "Check the URL '/patients' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
+      "Fetch URL '/doctors' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
     ],
-    "solution": "app.get('/patients', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/patients') diya tha, isliye backend me app.get('/patients') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
+    "solution": "app.get('/doctors', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/doctors') hai toh backend me vahi route hona chahiye."
   },
   {
     "id": "l1-6",
-    "title": "Employee Database",
+    "title": "Product Catalog",
     "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/staff' ko complete karein taaki data show ho jaye.",
+    "instructions": "Backend me missing GET route '/products' ko complete karein taaki table me data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/staff'\n\napp.listen(3000);",
-      "index.html": "<h1>Employee Database</h1><ul id='out'></ul>\n<script>\nfetch('/staff').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.role + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"role\": \"Sample 1\"}, {\"role\": \"Sample 2\"}]"
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/products' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Product Catalog</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Product Catalog</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th><th>Price</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/products\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td><td>${item.price}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"name\": \"Laptop\",\n    \"price\": 50000\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Phone\",\n    \"price\": 15000\n  }\n]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/staff"
+        "path": "/products"
       }
     ],
     "hints": [
-      "Check the URL '/staff' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
+      "Fetch URL '/products' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
     ],
-    "solution": "app.get('/staff', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/staff') diya tha, isliye backend me app.get('/staff') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
+    "solution": "app.get('/products', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/products') hai toh backend me vahi route hona chahiye."
   },
   {
     "id": "l1-7",
-    "title": "Fruit Inventory",
+    "title": "City Directory",
     "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/fruits' ko complete karein taaki data show ho jaye.",
+    "instructions": "Backend me missing GET route '/cities' ko complete karein taaki table me data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/fruits'\n\napp.listen(3000);",
-      "index.html": "<h1>Fruit Inventory</h1><ul id='out'></ul>\n<script>\nfetch('/fruits').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.color + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"color\": \"Sample 1\"}, {\"color\": \"Sample 2\"}]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/fruits"
-      }
-    ],
-    "hints": [
-      "Check the URL '/fruits' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
-    ],
-    "solution": "app.get('/fruits', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/fruits') diya tha, isliye backend me app.get('/fruits') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
-  },
-  {
-    "id": "l1-8",
-    "title": "Car Models",
-    "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/cars' ko complete karein taaki data show ho jaye.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/cars'\n\napp.listen(3000);",
-      "index.html": "<h1>Car Models</h1><ul id='out'></ul>\n<script>\nfetch('/cars').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.brand + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"brand\": \"Sample 1\"}, {\"brand\": \"Sample 2\"}]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/cars"
-      }
-    ],
-    "hints": [
-      "Check the URL '/cars' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
-    ],
-    "solution": "app.get('/cars', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/cars') diya tha, isliye backend me app.get('/cars') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
-  },
-  {
-    "id": "l1-9",
-    "title": "Mobile Phones",
-    "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/phones' ko complete karein taaki data show ho jaye.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/phones'\n\napp.listen(3000);",
-      "index.html": "<h1>Mobile Phones</h1><ul id='out'></ul>\n<script>\nfetch('/phones').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.model + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"model\": \"Sample 1\"}, {\"model\": \"Sample 2\"}]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/phones"
-      }
-    ],
-    "hints": [
-      "Check the URL '/phones' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
-    ],
-    "solution": "app.get('/phones', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/phones') diya tha, isliye backend me app.get('/phones') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
-  },
-  {
-    "id": "l1-10",
-    "title": "Movie Collection",
-    "difficulty": "Very Easy",
-    "instructions": "Backend me missing GET route '/films' ko complete karein taaki data show ho jaye.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/films'\n\napp.listen(3000);",
-      "index.html": "<h1>Movie Collection</h1><ul id='out'></ul>\n<script>\nfetch('/films').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.genre + '</li>';\n  });\n});\n</script>",
-      "data.json": "[{\"genre\": \"Sample 1\"}, {\"genre\": \"Sample 2\"}]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/films"
-      }
-    ],
-    "hints": [
-      "Check the URL '/films' in index.html.",
-      "Use fs.readFileSync to read the file.",
-      "Send the data using res.json()."
-    ],
-    "solution": "app.get('/films', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/films') diya tha, isliye backend me app.get('/films') banana tha. Simple file read logic use karna tha.",
-    "mcqs": [
-      {
-        "question": "Which method is used to read files in Node.js?",
-        "options": [
-          "fs.readFile",
-          "fs.write",
-          "res.send",
-          "app.get"
-        ],
-        "answer": 0
-      }
-    ]
-  },
-  {
-    "id": "l2-1",
-    "title": "Task Manager",
-    "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Task Manager</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/tasks').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/tasks"
-      },
-      {
-        "method": "POST",
-        "path": "/tasks"
-      }
-    ],
-    "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
-    ],
-    "solution": "app.get('/tasks', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/tasks', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
-    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
-  },
-  {
-    "id": "l2-2",
-    "title": "User Profile",
-    "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>User Profile</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/users').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/users"
-      },
-      {
-        "method": "DELETE",
-        "path": "/users/1"
-      }
-    ],
-    "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
-    ],
-    "solution": "app.get('/users', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/users/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
-    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
-  },
-  {
-    "id": "l2-3",
-    "title": "Cart Items",
-    "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Cart Items</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/cart').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/cart"
-      },
-      {
-        "method": "POST",
-        "path": "/cart"
-      }
-    ],
-    "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
-    ],
-    "solution": "app.get('/cart', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/cart', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
-    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
-  },
-  {
-    "id": "l2-4",
-    "title": "Game Scores",
-    "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Game Scores</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/scores').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/scores"
-      },
-      {
-        "method": "POST",
-        "path": "/scores"
-      }
-    ],
-    "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
-    ],
-    "solution": "app.get('/scores', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/scores', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
-    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
-  },
-  {
-    "id": "l2-5",
-    "title": "Music Playlists",
-    "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Music Playlists</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/songs').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/songs"
-      },
-      {
-        "method": "DELETE",
-        "path": "/songs/1"
-      }
-    ],
-    "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
-    ],
-    "solution": "app.get('/songs', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/songs/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
-    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
-  },
-  {
-    "id": "l2-6",
-    "title": "Recipe Book",
-    "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Recipe Book</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/recipes').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
-    },
-    "expectedAPIs": [
-      {
-        "method": "GET",
-        "path": "/recipes"
-      },
-      {
-        "method": "POST",
-        "path": "/recipes"
-      }
-    ],
-    "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
-    ],
-    "solution": "app.get('/recipes', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/recipes', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
-    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
-  },
-  {
-    "id": "l2-7",
-    "title": "City Weather",
-    "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'PUT' routes ko complete karein.",
-    "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>City Weather</h1>\n<button onclick='fetchData()'>View</button>\n\n\n<script>\nfunction fetchData() { fetch('/cities').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/cities' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>City Directory</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>City Directory</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th><th>State</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/cities\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td><td>${item.state}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"name\": \"Mumbai\",\n    \"state\": \"MH\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Delhi\",\n    \"state\": \"DL\"\n  }\n]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
         "path": "/cities"
-      },
-      {
-        "method": "PUT",
-        "path": "/cities/1"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Fetch URL '/cities' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
     ],
-    "solution": "app.get('/cities', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\n",
-    "explanation": "Isme humne basic GET ke saath PUT implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/cities', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/cities') hai toh backend me vahi route hona chahiye."
   },
   {
-    "id": "l2-8",
-    "title": "Vehicle Reg",
-    "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "id": "l1-8",
+    "title": "Vehicle List",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/vehicles' ko complete karein taaki table me data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Vehicle Reg</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/vehicles').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/vehicles' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Vehicle List</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Vehicle List</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Model</th><th>Brand</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/vehicles\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.model}</td><td>${item.brand}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"model\": \"Civic\",\n    \"brand\": \"Honda\"\n  },\n  {\n    \"id\": 2,\n    \"model\": \"Thar\",\n    \"brand\": \"Mahindra\"\n  }\n]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
         "path": "/vehicles"
-      },
-      {
-        "method": "DELETE",
-        "path": "/vehicles/1"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Fetch URL '/vehicles' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
     ],
-    "solution": "app.get('/vehicles', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/vehicles/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
-    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/vehicles', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/vehicles') hai toh backend me vahi route hona chahiye."
+  },
+  {
+    "id": "l1-9",
+    "title": "Flight Schedule",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/flights' ko complete karein taaki table me data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/flights' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Flight Schedule</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Flight Schedule</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Number</th><th>Dest</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/flights\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.number}</td><td>${item.dest}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"number\": \"AI101\",\n    \"dest\": \"NY\"\n  },\n  {\n    \"id\": 2,\n    \"number\": \"6E202\",\n    \"dest\": \"LND\"\n  }\n]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/flights"
+      }
+    ],
+    "hints": [
+      "Fetch URL '/flights' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
+    ],
+    "solution": "app.get('/flights', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/flights') hai toh backend me vahi route hona chahiye."
+  },
+  {
+    "id": "l1-10",
+    "title": "Movie Ratings",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/movies' ko complete karein taaki table me data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst data = require(\"./data.json\");\nconst app = express();\nconst PORT = 3000;\n\napp.use(express.static(\".\"));\n\n// TODO: Complete the GET '/movies' route\n\n\napp.listen(PORT, () => {\n    console.log(`Server running at http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Movie Ratings</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>Movie Ratings</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Title</th><th>Rating</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/movies\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.title}</td><td>${item.rating}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\n    \"id\": 1,\n    \"title\": \"Dangal\",\n    \"rating\": 9\n  },\n  {\n    \"id\": 2,\n    \"title\": \"Sholay\",\n    \"rating\": 10\n  }\n]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/movies"
+      }
+    ],
+    "hints": [
+      "Fetch URL '/movies' se match hona chahiye.",
+      "Directly 'require' kiye gaye data ko res.send() karein.",
+      "app.get() ka use karein."
+    ],
+    "solution": "app.get('/movies', (req, res) => {\n    res.send(data);\n});",
+    "explanation": "Sample pattern ke hisaab se humne require(\"./data.json\") kiya hai, isliye res.send(data) karke seedhe bhej sakte hain. HTML me fetch('/movies') hai toh backend me vahi route hona chahiye."
+  },
+  {
+    "id": "l2-1",
+    "title": "Management System 1",
+    "difficulty": "Easy",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 1</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 1</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Follow the sample folder pattern.",
+      "Use res.send()."
+    ],
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
+  },
+  {
+    "id": "l2-2",
+    "title": "Management System 2",
+    "difficulty": "Easy",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 2</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 2</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Follow the sample folder pattern.",
+      "Use res.send()."
+    ],
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
+  },
+  {
+    "id": "l2-3",
+    "title": "Management System 3",
+    "difficulty": "Easy",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 3</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 3</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Follow the sample folder pattern.",
+      "Use res.send()."
+    ],
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
+  },
+  {
+    "id": "l2-4",
+    "title": "Management System 4",
+    "difficulty": "Easy",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 4</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 4</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Follow the sample folder pattern.",
+      "Use res.send()."
+    ],
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
+  },
+  {
+    "id": "l2-5",
+    "title": "Management System 5",
+    "difficulty": "Easy",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 5</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 5</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Follow the sample folder pattern.",
+      "Use res.send()."
+    ],
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
+  },
+  {
+    "id": "l2-6",
+    "title": "Management System 6",
+    "difficulty": "Easy",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 6</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 6</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Follow the sample folder pattern.",
+      "Use res.send()."
+    ],
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
+  },
+  {
+    "id": "l2-7",
+    "title": "Management System 7",
+    "difficulty": "Easy",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 7</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 7</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Follow the sample folder pattern.",
+      "Use res.send()."
+    ],
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
+  },
+  {
+    "id": "l2-8",
+    "title": "Management System 8",
+    "difficulty": "Easy",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 8</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 8</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Follow the sample folder pattern.",
+      "Use res.send()."
+    ],
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
   },
   {
     "id": "l2-9",
-    "title": "Customer Feed",
+    "title": "Management System 9",
     "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Customer Feed</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/feedback').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 9</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 9</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/feedback"
-      },
-      {
-        "method": "POST",
-        "path": "/feedback"
+        "path": "/items"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Follow the sample folder pattern.",
+      "Use res.send()."
     ],
-    "solution": "app.get('/feedback', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/feedback', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
-    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
   },
   {
     "id": "l2-10",
-    "title": "Job Portal",
+    "title": "Management System 10",
     "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Job Portal</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/jobs').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 10</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 10</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/jobs"
-      },
-      {
-        "method": "DELETE",
-        "path": "/jobs/1"
+        "path": "/items"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Follow the sample folder pattern.",
+      "Use res.send()."
     ],
-    "solution": "app.get('/jobs', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/jobs/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
-    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
   },
   {
     "id": "l2-11",
-    "title": "Hotel Rooms",
+    "title": "Management System 11",
     "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'PUT' routes ko complete karein.",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Hotel Rooms</h1>\n<button onclick='fetchData()'>View</button>\n\n\n<script>\nfunction fetchData() { fetch('/rooms').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 11</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 11</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/rooms"
-      },
-      {
-        "method": "PUT",
-        "path": "/rooms/1"
+        "path": "/items"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Follow the sample folder pattern.",
+      "Use res.send()."
     ],
-    "solution": "app.get('/rooms', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\n",
-    "explanation": "Isme humne basic GET ke saath PUT implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
   },
   {
     "id": "l2-12",
-    "title": "Stock Market",
+    "title": "Management System 12",
     "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Stock Market</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/stocks').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 12</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 12</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/stocks"
-      },
-      {
-        "method": "POST",
-        "path": "/stocks"
+        "path": "/items"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Follow the sample folder pattern.",
+      "Use res.send()."
     ],
-    "solution": "app.get('/stocks', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/stocks', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
-    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
   },
   {
     "id": "l2-13",
-    "title": "Student Grades",
+    "title": "Management System 13",
     "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Student Grades</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/grades').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 13</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 13</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/grades"
-      },
-      {
-        "method": "DELETE",
-        "path": "/grades/1"
+        "path": "/items"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Follow the sample folder pattern.",
+      "Use res.send()."
     ],
-    "solution": "app.get('/grades', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/grades/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
-    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
   },
   {
     "id": "l2-14",
-    "title": "Pet Shelter",
+    "title": "Management System 14",
     "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Pet Shelter</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/pets').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 14</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 14</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/pets"
-      },
-      {
-        "method": "POST",
-        "path": "/pets"
+        "path": "/items"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Follow the sample folder pattern.",
+      "Use res.send()."
     ],
-    "solution": "app.get('/pets', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/pets', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
-    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
   },
   {
     "id": "l2-15",
-    "title": "Gym Members",
+    "title": "Management System 15",
     "difficulty": "Easy",
-    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "instructions": "GET aur POST/DELETE routes ko complete karein.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
-      "index.html": "<h1>Gym Members</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/members').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
-      "data.json": "[]"
+      "index.js": "const express = require(\"express\");\nconst items = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Routes here\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>System 15</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>System 15</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Name</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/items\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.name}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[{\"id\":1, \"name\":\"Test\"}]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/members"
-      },
-      {
-        "method": "DELETE",
-        "path": "/members/1"
+        "path": "/items"
       }
     ],
     "hints": [
-      "Don't forget app.use(express.json()) for POST/PUT.",
-      "Use req.params.id for DELETE.",
-      "Use req.body for POST."
+      "Follow the sample folder pattern.",
+      "Use res.send()."
     ],
-    "solution": "app.get('/members', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/members/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
-    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+    "solution": "app.get('/items', (req, res) => res.send(items));",
+    "explanation": "Sample folder pattern follow karte hue GET route banaya gaya."
   },
   {
     "id": "l3-1",
-    "title": "University CRUD 1: Resource Management",
+    "title": "Full System 1",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 1</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 1</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-2",
-    "title": "University CRUD 2: Resource Management",
+    "title": "Full System 2",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 2</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 2</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-3",
-    "title": "University CRUD 3: Resource Management",
+    "title": "Full System 3",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 3</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 3</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-4",
-    "title": "University CRUD 4: Resource Management",
+    "title": "Full System 4",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 4</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 4</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-5",
-    "title": "University CRUD 5: Resource Management",
+    "title": "Full System 5",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 5</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 5</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-6",
-    "title": "University CRUD 6: Resource Management",
+    "title": "Full System 6",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 6</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 6</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-7",
-    "title": "University CRUD 7: Resource Management",
+    "title": "Full System 7",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 7</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 7</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-8",
-    "title": "University CRUD 8: Resource Management",
+    "title": "Full System 8",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 8</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 8</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-9",
-    "title": "University CRUD 9: Resource Management",
+    "title": "Full System 9",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 9</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 9</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   },
   {
     "id": "l3-10",
-    "title": "University CRUD 10: Resource Management",
+    "title": "Full System 10",
     "difficulty": "Medium",
-    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "instructions": "Full CRUD routes implement karein sample pattern ke hisaab se.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
-      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "index.js": "const express = require(\"express\");\nconst resources = require(\"./data.json\");\nconst app = express();\napp.use(express.json());\napp.use(express.static(\".\"));\n\n// TODO: Complete CRUD\n\napp.listen(3000);",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>CRUD 10</title>\n    <style>\n        body{ font-family: Arial; margin: 30px; background-color: #f5f5f5; }\n        button{ padding: 10px 20px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }\n        table{ width: 100%; margin-top: 20px; border-collapse: collapse; background-color: white; }\n        table, th, td{ border: 1px solid #ccc; }\n        th, td{ padding: 12px; text-align: center; }\n        th{ background-color: #007bff; color: white; }\n    </style>\n</head>\n<body>\n    <h1>CRUD 10</h1>\n    <button onclick=\"getData()\">Show Data</button>\n    <table id=\"myTable\">\n        <thead>\n            <tr><th>ID</th><th>Value</th></tr>\n        </thead>\n        <tbody></tbody>\n    </table>\n    <script>\n        async function getData(){\n            try {\n                const response = await fetch(\"/resources\");\n                const data = await response.json();\n                const tableBody = document.querySelector(\"#myTable tbody\");\n                tableBody.innerHTML = \"\";\n                data.forEach(item => {\n                    tableBody.innerHTML += `\n                        <tr>\n                            <td>${item.id}</td><td>${item.value}</td>\n                        </tr>\n                    `;\n                });\n            } catch(error) { console.log(\"Error:\", error); }\n        }\n    </script>\n</body>\n</html>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/resource"
-      },
-      {
-        "method": "POST",
-        "path": "/resource"
-      },
-      {
-        "method": "DELETE",
-        "path": "/resource/1"
+        "path": "/resources"
       }
     ],
     "hints": [
-      "Combine all previous knowledge.",
-      "Ensure file is updated after each write operation.",
-      "Use app.get, app.post, and app.delete."
+      "Combine GET, POST, and DELETE."
     ],
-    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
-    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+    "solution": "app.get('/resources', (req, res) => res.send(resources));",
+    "explanation": "Medium level task follow student pattern."
   }
 ]

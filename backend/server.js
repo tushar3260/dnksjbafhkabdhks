@@ -103,8 +103,8 @@ app.post('/api/execute', async (req, res) => {
     });
 });
 
-// Catch-all route for SPA
-app.get('*', (req, res) => {
+// Catch-all middleware for SPA (Universal Fix)
+app.use((req, res) => {
     const indexPath = path.join(__dirname, '../frontend/dist/index.html');
     if (fs.existsSync(indexPath)) {
         res.sendFile(indexPath);
