@@ -90,7 +90,7 @@ The platform allows students to practice coding exams in a realistic environment
 - **Frontend**:
     - `VITE_API_URL`: The URL of your deployed backend service.
 - **Backend**:
-    - `PORT`: Automatically set by Render (defaults to 10000).
+    - `PORT`: Automatically set by Render (defaults to 5000 locally).
 
 ---
 

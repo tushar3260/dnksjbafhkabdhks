@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 10000; // Render uses port 10000 often, or just process.env.PORT
+const PORT = process.env.PORT || 5000;
 
 app.use(cors({
     origin: '*', // For production, you might want to restrict this to your vercel URL

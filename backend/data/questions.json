@@ -1,77 +1,1102 @@
 [
   {
-    "id": "1",
-    "title": "Student Management System",
-    "difficulty": "Easy",
-    "category": "Single GET API",
-    "instructions": "Complete the missing GET route to fetch all students from the provided data.json file.",
+    "id": "l1-1",
+    "title": "Student List",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/students' ko complete karein taaki data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst fs = require('fs');\nconst app = express();\nconst PORT = 3000;\n\n// TODO: Complete the GET '/students' route\n\n\napp.listen(PORT, () => {\n  console.log(`Server running on http://localhost:${PORT}`);\n});",
-      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Student List</title>\n</head>\n<body>\n    <h1>Students</h1>\n    <ul id='list'></ul>\n    <script>\n        fetch('/students')\n            .then(res => res.json())\n            .then(data => {\n                const list = document.getElementById('list');\n                data.forEach(s => {\n                    const li = document.createElement('li');\n                    li.textContent = s.name;\n                    list.appendChild(li);\n                });\n            });\n    </script>\n</body>\n</html>",
-      "data.json": "[\n  {\"id\": 1, \"name\": \"Rahul Sharma\"},\n  {\"id\": 2, \"name\": \"Anjali Gupta\"}\n]"
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/students'\n\napp.listen(3000);",
+      "index.html": "<h1>Student List</h1><ul id='out'></ul>\n<script>\nfetch('/students').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.name + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"name\": \"Sample 1\"}, {\"name\": \"Sample 2\"}]"
     },
     "expectedAPIs": [
       {
         "method": "GET",
-        "path": "/students",
-        "response": [
-          {"id": 1, "name": "Rahul Sharma"},
-          {"id": 2, "name": "Anjali Gupta"}
-        ]
+        "path": "/students"
       }
     ],
     "hints": [
-      "Check the fetch URL in index.html.",
-      "Use fs.readFileSync to read the data.json file.",
-      "Use res.json() to send the data."
+      "Check the URL '/students' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
     ],
     "solution": "app.get('/students', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
-    "explanation": "HTML me fetch('/students') diya tha, isliye backend me app.get('/students') banana tha. fs module ka use karke humne data.json read kiya aur JSON response bhej diya.",
+    "explanation": "HTML me fetch('/students') diya tha, isliye backend me app.get('/students') banana tha. Simple file read logic use karna tha.",
     "mcqs": [
       {
-        "question": "Which method is used to send JSON response in Express?",
-        "options": ["res.send()", "res.json()", "res.write()", "res.html()"],
-        "answer": 1
-      },
-      {
-        "question": "What does express() initialize?",
-        "options": ["A database connection", "An Express application", "A JSON file", "A middleare"],
-        "answer": 1
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
       }
     ]
   },
   {
-    "id": "2",
-    "title": "Hospital Management - POST API",
-    "difficulty": "Medium",
-    "category": "POST API",
-    "instructions": "Implement a POST route to add a new patient to the database.",
+    "id": "l1-2",
+    "title": "Teacher Directory",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/teachers' ko complete karein taaki data show ho jaye.",
     "starterCode": {
-      "index.js": "const express = require('express');\nconst fs = require('fs');\nconst app = express();\napp.use(express.json());\nconst PORT = 3000;\n\n// TODO: Implement POST '/patients'\n\napp.listen(PORT, () => {\n  console.log(`Server running on http://localhost:${PORT}`);\n});",
-      "index.html": "<!DOCTYPE html>\n<html>\n<body>\n    <input id='name' placeholder='Patient Name'>\n    <button onclick='add()'>Add</button>\n    <script>\n        function add() {\n            const name = document.getElementById('name').value;\n            fetch('/patients', {\n                method: 'POST',\n                headers: {'Content-Type': 'application/json'},\n                body: JSON.stringify({ name })\n            }).then(() => alert('Added!'));\n        }\n    </script>\n</body>\n</html>",
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/teachers'\n\napp.listen(3000);",
+      "index.html": "<h1>Teacher Directory</h1><ul id='out'></ul>\n<script>\nfetch('/teachers').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.subject + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"subject\": \"Sample 1\"}, {\"subject\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/teachers"
+      }
+    ],
+    "hints": [
+      "Check the URL '/teachers' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/teachers', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/teachers') diya tha, isliye backend me app.get('/teachers') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l1-3",
+    "title": "Library Books",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/books' ko complete karein taaki data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/books'\n\napp.listen(3000);",
+      "index.html": "<h1>Library Books</h1><ul id='out'></ul>\n<script>\nfetch('/books').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.title + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"title\": \"Sample 1\"}, {\"title\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/books"
+      }
+    ],
+    "hints": [
+      "Check the URL '/books' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/books', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/books') diya tha, isliye backend me app.get('/books') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l1-4",
+    "title": "Product Catalog",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/items' ko complete karein taaki data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/items'\n\napp.listen(3000);",
+      "index.html": "<h1>Product Catalog</h1><ul id='out'></ul>\n<script>\nfetch('/items').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.price + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"price\": \"Sample 1\"}, {\"price\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/items"
+      }
+    ],
+    "hints": [
+      "Check the URL '/items' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/items', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/items') diya tha, isliye backend me app.get('/items') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l1-5",
+    "title": "Hospital Patients",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/patients' ko complete karein taaki data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/patients'\n\napp.listen(3000);",
+      "index.html": "<h1>Hospital Patients</h1><ul id='out'></ul>\n<script>\nfetch('/patients').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.disease + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"disease\": \"Sample 1\"}, {\"disease\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/patients"
+      }
+    ],
+    "hints": [
+      "Check the URL '/patients' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/patients', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/patients') diya tha, isliye backend me app.get('/patients') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l1-6",
+    "title": "Employee Database",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/staff' ko complete karein taaki data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/staff'\n\napp.listen(3000);",
+      "index.html": "<h1>Employee Database</h1><ul id='out'></ul>\n<script>\nfetch('/staff').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.role + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"role\": \"Sample 1\"}, {\"role\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/staff"
+      }
+    ],
+    "hints": [
+      "Check the URL '/staff' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/staff', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/staff') diya tha, isliye backend me app.get('/staff') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l1-7",
+    "title": "Fruit Inventory",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/fruits' ko complete karein taaki data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/fruits'\n\napp.listen(3000);",
+      "index.html": "<h1>Fruit Inventory</h1><ul id='out'></ul>\n<script>\nfetch('/fruits').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.color + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"color\": \"Sample 1\"}, {\"color\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/fruits"
+      }
+    ],
+    "hints": [
+      "Check the URL '/fruits' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/fruits', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/fruits') diya tha, isliye backend me app.get('/fruits') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l1-8",
+    "title": "Car Models",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/cars' ko complete karein taaki data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/cars'\n\napp.listen(3000);",
+      "index.html": "<h1>Car Models</h1><ul id='out'></ul>\n<script>\nfetch('/cars').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.brand + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"brand\": \"Sample 1\"}, {\"brand\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/cars"
+      }
+    ],
+    "hints": [
+      "Check the URL '/cars' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/cars', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/cars') diya tha, isliye backend me app.get('/cars') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l1-9",
+    "title": "Mobile Phones",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/phones' ko complete karein taaki data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/phones'\n\napp.listen(3000);",
+      "index.html": "<h1>Mobile Phones</h1><ul id='out'></ul>\n<script>\nfetch('/phones').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.model + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"model\": \"Sample 1\"}, {\"model\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/phones"
+      }
+    ],
+    "hints": [
+      "Check the URL '/phones' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/phones', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/phones') diya tha, isliye backend me app.get('/phones') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l1-10",
+    "title": "Movie Collection",
+    "difficulty": "Very Easy",
+    "instructions": "Backend me missing GET route '/films' ko complete karein taaki data show ho jaye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\n\n// TODO: Complete GET '/films'\n\napp.listen(3000);",
+      "index.html": "<h1>Movie Collection</h1><ul id='out'></ul>\n<script>\nfetch('/films').then(r=>r.json()).then(data=>{\n  data.forEach(x => {\n    document.getElementById('out').innerHTML += '<li>' + x.genre + '</li>';\n  });\n});\n</script>",
+      "data.json": "[{\"genre\": \"Sample 1\"}, {\"genre\": \"Sample 2\"}]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/films"
+      }
+    ],
+    "hints": [
+      "Check the URL '/films' in index.html.",
+      "Use fs.readFileSync to read the file.",
+      "Send the data using res.json()."
+    ],
+    "solution": "app.get('/films', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/films') diya tha, isliye backend me app.get('/films') banana tha. Simple file read logic use karna tha.",
+    "mcqs": [
+      {
+        "question": "Which method is used to read files in Node.js?",
+        "options": [
+          "fs.readFile",
+          "fs.write",
+          "res.send",
+          "app.get"
+        ],
+        "answer": 0
+      }
+    ]
+  },
+  {
+    "id": "l2-1",
+    "title": "Task Manager",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Task Manager</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/tasks').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
       "data.json": "[]"
     },
     "expectedAPIs": [
       {
+        "method": "GET",
+        "path": "/tasks"
+      },
+      {
         "method": "POST",
-        "path": "/patients",
-        "body": {"name": "Test Patient"},
-        "response": {"message": "Success"}
+        "path": "/tasks"
       }
     ],
     "hints": [
-      "Use app.post() to define the route.",
-      "Access the name from req.body.",
-      "Don't forget to use express.json() middleware (already added)."
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
     ],
-    "solution": "app.post('/patients', (req, res) => {\n  const patients = JSON.parse(fs.readFileSync('data.json'));\n  patients.push(req.body);\n  fs.writeFileSync('data.json', JSON.stringify(patients));\n  res.json({ message: 'Success' });\n});",
-    "explanation": "Isme hume naya patient add karna tha. POST method use kiya kyuki data send ho raha tha. req.body se data liya aur push karke file save kar di.",
-    "mcqs": [
+    "solution": "app.get('/tasks', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/tasks', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
+    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-2",
+    "title": "User Profile",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>User Profile</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/users').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
       {
-        "question": "Which middleware is needed to parse JSON body?",
-        "options": ["express.urlencoded()", "express.json()", "express.static()", "express.text()"],
-        "answer": 1
+        "method": "GET",
+        "path": "/users"
+      },
+      {
+        "method": "DELETE",
+        "path": "/users/1"
       }
-    ]
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/users', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/users/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
+    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-3",
+    "title": "Cart Items",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Cart Items</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/cart').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/cart"
+      },
+      {
+        "method": "POST",
+        "path": "/cart"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/cart', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/cart', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
+    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-4",
+    "title": "Game Scores",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Game Scores</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/scores').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/scores"
+      },
+      {
+        "method": "POST",
+        "path": "/scores"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/scores', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/scores', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
+    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-5",
+    "title": "Music Playlists",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Music Playlists</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/songs').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/songs"
+      },
+      {
+        "method": "DELETE",
+        "path": "/songs/1"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/songs', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/songs/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
+    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-6",
+    "title": "Recipe Book",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Recipe Book</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/recipes').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/recipes"
+      },
+      {
+        "method": "POST",
+        "path": "/recipes"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/recipes', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/recipes', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
+    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-7",
+    "title": "City Weather",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'PUT' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>City Weather</h1>\n<button onclick='fetchData()'>View</button>\n\n\n<script>\nfunction fetchData() { fetch('/cities').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/cities"
+      },
+      {
+        "method": "PUT",
+        "path": "/cities/1"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/cities', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\n",
+    "explanation": "Isme humne basic GET ke saath PUT implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-8",
+    "title": "Vehicle Reg",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Vehicle Reg</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/vehicles').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/vehicles"
+      },
+      {
+        "method": "DELETE",
+        "path": "/vehicles/1"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/vehicles', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/vehicles/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
+    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-9",
+    "title": "Customer Feed",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Customer Feed</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/feedback').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/feedback"
+      },
+      {
+        "method": "POST",
+        "path": "/feedback"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/feedback', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/feedback', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
+    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-10",
+    "title": "Job Portal",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Job Portal</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/jobs').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/jobs"
+      },
+      {
+        "method": "DELETE",
+        "path": "/jobs/1"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/jobs', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/jobs/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
+    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-11",
+    "title": "Hotel Rooms",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'PUT' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Hotel Rooms</h1>\n<button onclick='fetchData()'>View</button>\n\n\n<script>\nfunction fetchData() { fetch('/rooms').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/rooms"
+      },
+      {
+        "method": "PUT",
+        "path": "/rooms/1"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/rooms', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\n",
+    "explanation": "Isme humne basic GET ke saath PUT implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-12",
+    "title": "Stock Market",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Stock Market</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/stocks').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/stocks"
+      },
+      {
+        "method": "POST",
+        "path": "/stocks"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/stocks', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/stocks', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
+    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-13",
+    "title": "Student Grades",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Student Grades</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/grades').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/grades"
+      },
+      {
+        "method": "DELETE",
+        "path": "/grades/1"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/grades', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/grades/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
+    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-14",
+    "title": "Pet Shelter",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'POST' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Pet Shelter</h1>\n<button onclick='fetchData()'>View</button>\n<button onclick='addData()'>Add</button>\n\n<script>\nfunction fetchData() { fetch('/pets').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/pets"
+      },
+      {
+        "method": "POST",
+        "path": "/pets"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/pets', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/pets', (req, res) => { const d = JSON.parse(fs.readFileSync('data.json')); d.push(req.body); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });\n",
+    "explanation": "Isme humne basic GET ke saath POST implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l2-15",
+    "title": "Gym Members",
+    "difficulty": "Easy",
+    "instructions": "Is platform par 'GET' aur 'DELETE' routes ko complete karein.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Complete missing routes\n\napp.listen(3000);",
+      "index.html": "<h1>Gym Members</h1>\n<button onclick='fetchData()'>View</button>\n\n<button onclick='delData(1)'>Delete ID 1</button>\n<script>\nfunction fetchData() { fetch('/members').then(r=>r.json()).then(d=>console.log(d)); }\n</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/members"
+      },
+      {
+        "method": "DELETE",
+        "path": "/members/1"
+      }
+    ],
+    "hints": [
+      "Don't forget app.use(express.json()) for POST/PUT.",
+      "Use req.params.id for DELETE.",
+      "Use req.body for POST."
+    ],
+    "solution": "app.get('/members', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\n\napp.delete('/members/:id', (req, res) => { let d = JSON.parse(fs.readFileSync('data.json')); d = d.filter(x => x.id != req.params.id); fs.writeFileSync('data.json', JSON.stringify(d)); res.json({ok:true}); });",
+    "explanation": "Isme humne basic GET ke saath DELETE implement kiya hai. Simple array methods push/filter use kiye gaye hain."
+  },
+  {
+    "id": "l3-1",
+    "title": "University CRUD 1: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-2",
+    "title": "University CRUD 2: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-3",
+    "title": "University CRUD 3: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-4",
+    "title": "University CRUD 4: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-5",
+    "title": "University CRUD 5: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-6",
+    "title": "University CRUD 6: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-7",
+    "title": "University CRUD 7: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-8",
+    "title": "University CRUD 8: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-9",
+    "title": "University CRUD 9: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
+  },
+  {
+    "id": "l3-10",
+    "title": "University CRUD 10: Resource Management",
+    "difficulty": "Medium",
+    "instructions": "Full CRUD (GET, POST, DELETE) implement karein specific resource ke liye.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst app = express();\nconst fs = require('fs');\napp.use(express.json());\n\n// TODO: Full CRUD routes here\n\napp.listen(3000);",
+      "index.html": "<h1>CRUD System</h1><script>fetch('/resource').then(r=>r.json());</script>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/resource"
+      },
+      {
+        "method": "POST",
+        "path": "/resource"
+      },
+      {
+        "method": "DELETE",
+        "path": "/resource/1"
+      }
+    ],
+    "hints": [
+      "Combine all previous knowledge.",
+      "Ensure file is updated after each write operation.",
+      "Use app.get, app.post, and app.delete."
+    ],
+    "solution": "app.get('/resource', (req, res) => res.json(JSON.parse(fs.readFileSync('data.json'))));\napp.post('/resource', (req, res) => { /* logic */ });\napp.delete('/resource/:id', (req, res) => { /* logic */ });",
+    "explanation": "Simple CRUD workflow: Fetching data, adding new records, and removing by ID."
   }
 ]
