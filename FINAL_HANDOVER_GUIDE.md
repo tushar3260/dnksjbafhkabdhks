@@ -2,6 +2,12 @@
 
 This document provides a complete overview of the "WebTech CBT Practice Platform," a full-stack system designed for university-level Node.js/Express coding exam simulation.
 
+### 🏃 Quick Start (All-in-one Server)
+To run everything on a single port (5000):
+1. `cd frontend && npm run build`
+2. `cd ../backend && npm start`
+3. Open `http://localhost:5000` in your browser.
+
 ---
 
 ## 1. Project Overview
