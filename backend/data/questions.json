@@ -1,0 +1,77 @@
+[
+  {
+    "id": "1",
+    "title": "Student Management System",
+    "difficulty": "Easy",
+    "category": "Single GET API",
+    "instructions": "Complete the missing GET route to fetch all students from the provided data.json file.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst fs = require('fs');\nconst app = express();\nconst PORT = 3000;\n\n// TODO: Complete the GET '/students' route\n\n\napp.listen(PORT, () => {\n  console.log(`Server running on http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<head>\n    <title>Student List</title>\n</head>\n<body>\n    <h1>Students</h1>\n    <ul id='list'></ul>\n    <script>\n        fetch('/students')\n            .then(res => res.json())\n            .then(data => {\n                const list = document.getElementById('list');\n                data.forEach(s => {\n                    const li = document.createElement('li');\n                    li.textContent = s.name;\n                    list.appendChild(li);\n                });\n            });\n    </script>\n</body>\n</html>",
+      "data.json": "[\n  {\"id\": 1, \"name\": \"Rahul Sharma\"},\n  {\"id\": 2, \"name\": \"Anjali Gupta\"}\n]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "GET",
+        "path": "/students",
+        "response": [
+          {"id": 1, "name": "Rahul Sharma"},
+          {"id": 2, "name": "Anjali Gupta"}
+        ]
+      }
+    ],
+    "hints": [
+      "Check the fetch URL in index.html.",
+      "Use fs.readFileSync to read the data.json file.",
+      "Use res.json() to send the data."
+    ],
+    "solution": "app.get('/students', (req, res) => {\n  const data = JSON.parse(fs.readFileSync('data.json'));\n  res.json(data);\n});",
+    "explanation": "HTML me fetch('/students') diya tha, isliye backend me app.get('/students') banana tha. fs module ka use karke humne data.json read kiya aur JSON response bhej diya.",
+    "mcqs": [
+      {
+        "question": "Which method is used to send JSON response in Express?",
+        "options": ["res.send()", "res.json()", "res.write()", "res.html()"],
+        "answer": 1
+      },
+      {
+        "question": "What does express() initialize?",
+        "options": ["A database connection", "An Express application", "A JSON file", "A middleare"],
+        "answer": 1
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Hospital Management - POST API",
+    "difficulty": "Medium",
+    "category": "POST API",
+    "instructions": "Implement a POST route to add a new patient to the database.",
+    "starterCode": {
+      "index.js": "const express = require('express');\nconst fs = require('fs');\nconst app = express();\napp.use(express.json());\nconst PORT = 3000;\n\n// TODO: Implement POST '/patients'\n\napp.listen(PORT, () => {\n  console.log(`Server running on http://localhost:${PORT}`);\n});",
+      "index.html": "<!DOCTYPE html>\n<html>\n<body>\n    <input id='name' placeholder='Patient Name'>\n    <button onclick='add()'>Add</button>\n    <script>\n        function add() {\n            const name = document.getElementById('name').value;\n            fetch('/patients', {\n                method: 'POST',\n                headers: {'Content-Type': 'application/json'},\n                body: JSON.stringify({ name })\n            }).then(() => alert('Added!'));\n        }\n    </script>\n</body>\n</html>",
+      "data.json": "[]"
+    },
+    "expectedAPIs": [
+      {
+        "method": "POST",
+        "path": "/patients",
+        "body": {"name": "Test Patient"},
+        "response": {"message": "Success"}
+      }
+    ],
+    "hints": [
+      "Use app.post() to define the route.",
+      "Access the name from req.body.",
+      "Don't forget to use express.json() middleware (already added)."
+    ],
+    "solution": "app.post('/patients', (req, res) => {\n  const patients = JSON.parse(fs.readFileSync('data.json'));\n  patients.push(req.body);\n  fs.writeFileSync('data.json', JSON.stringify(patients));\n  res.json({ message: 'Success' });\n});",
+    "explanation": "Isme hume naya patient add karna tha. POST method use kiya kyuki data send ho raha tha. req.body se data liya aur push karke file save kar di.",
+    "mcqs": [
+      {
+        "question": "Which middleware is needed to parse JSON body?",
+        "options": ["express.urlencoded()", "express.json()", "express.static()", "express.text()"],
+        "answer": 1
+      }
+    ]
+  }
+]
